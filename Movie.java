@@ -1,4 +1,6 @@
-public class Movie {
+import java.util.ArrayList;
+
+public class Movie extends Object {
 
 	private String name;
 	private String genre;
@@ -8,7 +10,7 @@ public class Movie {
 	private int soundtrackRating;
 	private int plotRating;
 	private double totalRating;				//Changed to double to show correct average
-	private ArrayList<Review> reviewsList;
+	private ArrayList<Review> reviewsList = new ArrayList<Review>();
 
 	//Moved Review methods to be dealth with here, but
 	//called from RegisteredUser
@@ -97,20 +99,31 @@ public class Movie {
 		return this.totalRating;
 	}
 
-	public boolean addReview (Review review) {
-		return this.reviewsList.add(review);
+	public void addReview (Review review) {
+		this.reviewsList.add(review);
 	}
 
-	public boolean editReview (Review review, String newBody) {
+	public void editReview (Review review, String newBody) {
 		review.editBody(newBody);
 	}
 
-	public boolean removeReview (Review review) {
-		return this.reviewsList.remove(review);
+	public void removeReview (Review review) {
+		this.reviewsList.remove(review);
 	}
 
 	public ArrayList<Review> getReviewsList () {
 		return this.reviewsList;
+	}
+
+	@Override
+	public String toString () {
+		String result = this.name;
+		if (this.reviewsList.size() > 0) {
+			for (int i = 0; i < this.reviewsList.size(); i++) {
+				result += "\treviews: [" + this.reviewsList.get(i).toString() + "],";
+			}
+		}
+		return result;
 	}
 
 }

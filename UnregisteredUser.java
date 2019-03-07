@@ -9,7 +9,7 @@ public class UnregisteredUser extends User {
 	 */
 
 	public RegisteredUser register(String userName, String password) {
-		return UserRegistry.getInstance().addRegisteredUser(userName, password);
+		return UserRegistry.getInstance().addRegisteredUser(userName, password, false);
 	}
 
 }

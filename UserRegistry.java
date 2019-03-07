@@ -9,7 +9,9 @@ public class UserRegistry {
      * @param instance
      * @param usersList
     */
-    private UserRegistry () {}
+    private UserRegistry () {
+        Administrator admin = Administrator.getInstance("admin", "admin", true);
+    }
 
     public static UserRegistry getInstance () {
         if (instance == null)
@@ -18,15 +20,16 @@ public class UserRegistry {
     }
 
     public boolean checkUserExists (String userName) {
-        for (int i = 0; i < usersList.length(); i++) {
+        for (int i = 0; i < usersList.size(); i++) {
             if (userName.equals(usersList.get(i).getUserName()))
                 return true;
         }
         return false;
     }
 
-    public boolean addRegisteredUser (String userName, String password) {
-        RegisteredUser newUser = new RegisteredUser(userName, password);
-        return this.usersList.add(newUser);
+    public RegisteredUser addRegisteredUser (String userName, String password, boolean isAdmin) {
+        RegisteredUser newUser = new RegisteredUser(userName, password, isAdmin);
+        this.usersList.add(newUser);
+        return newUser;
     }
 }

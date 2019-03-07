@@ -23,14 +23,18 @@ public class Review {
 		this.body = newBody;
 	}
 
-	public boolean addComment (String body) {
+	public void addComment (String body) {
 		Comment newComment = new Comment(body, this.owner);
-		newComment.setId(commentsList.length()+1);
-		return this.commentsList.add(newComment);
+		this.commentsList.add(newComment);
+		return;
 	}
 
 	public ArrayList<Comment> getCommentsList () {
 		return this.commentsList;
+	}
+
+	public String toString () {
+		return "Review body: " + this.body + "\tOwner: " + this.owner.getUserName();
 	}
 
 }
