@@ -28,8 +28,14 @@ public class UserRegistry {
     }
 
     public RegisteredUser addRegisteredUser (String userName, String password, boolean isAdmin) {
-        RegisteredUser newUser = new RegisteredUser(userName, password, isAdmin);
-        this.usersList.add(newUser);
-        return newUser;
+        if (!checkUserExists(userName)) {
+            RegisteredUser newUser = new RegisteredUser(userName, password, isAdmin);
+            this.usersList.add(newUser);
+            return newUser;
+        }
+        else {
+            System.out.println("This user already exists");
+            return null;
+        }
     }
 }
