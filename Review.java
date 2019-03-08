@@ -34,7 +34,13 @@ public class Review {
 	}
 
 	public String toString () {
-		return "Review body: " + this.body + "\tOwner: " + this.owner.getUserName();
+		String result = "Review body: " + this.body + "\tOwner: " + this.owner.getUserName();
+		/* if (this.commentsList.size() > 0) {
+			for (int i = 0; i < this.commentsList.size(); i++) {
+				result += this.commentsList.toString();
+			}
+		}*/
+		return result;
 	}
 
 }

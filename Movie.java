@@ -119,8 +119,9 @@ public class Movie extends Object {
 	public String toString () {
 		String result = this.name;
 		if (this.reviewsList.size() > 0) {
+			result += "\tReviews: ";
 			for (int i = 0; i < this.reviewsList.size(); i++) {
-				result += "\treviews: [" + this.reviewsList.get(i).toString() + "],";
+				result += "[" + this.reviewsList.get(i).toString() + "],";
 			}
 		}
 		return result;

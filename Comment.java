@@ -23,4 +23,8 @@ public class Comment {
 	public RegisteredUser getOwner () {
 		return this.owner;
 	}
+
+	public String toString () {
+		return "Body: " + this.body + "\tOwner: " + this.owner.getUserName();
+	}
 }
