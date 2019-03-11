@@ -6,6 +6,8 @@ public class Test {
     }
 
     public static RegisteredUser testBasicFunctions (MovieManager database) {
+        //Write a method checking login and register
+        //Write a method checking all cases involving Reviews
         database.addMovie("Spectre", "action", 4, 3, 4, 5, 5, true);
 
         UnregisteredUser ur = new UnregisteredUser();

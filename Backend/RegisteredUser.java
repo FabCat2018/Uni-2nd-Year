@@ -1,5 +1,3 @@
-import com.sun.media.jfxmedia.events.NewFrameEvent;
-
 public class RegisteredUser extends User {
 
 	private String userName;
