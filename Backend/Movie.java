@@ -117,12 +117,16 @@ public class Movie extends Object {
 
 	@Override
 	public String toString () {
-		String result = this.name;
+		calculateTotalRating();
+		String result = this.name + "\nGenre: " + this.genre + "\nActing: " + this.actingRating + "\nCinematogrpahy: "
+		+ this.cinematographyRating + "\nConcept: " + this.conceptRating + "\nSoundtrack: " + this.soundtrackRating
+		+ "\nPlot: " + this.plotRating + "\nTotal: " + this.totalRating;
 		if (this.reviewsList.size() > 0) {
-			result += "\tReviews: ";
-			for (int i = 0; i < this.reviewsList.size(); i++) {
-				result += "[" + this.reviewsList.get(i).toString() + "],";
+			result += "\n\nReviews:\n";
+			for (int i = 0; i < this.reviewsList.size()-1; i++) {
+				result += "[" + this.reviewsList.get(i).toString() + "]\n";
 			}
+			result += "[" + this.reviewsList.get(this.reviewsList.size()-1).toString() + "]";
 		}
 		return result;
 	}
