@@ -17,6 +17,7 @@ public class MovieGUI extends Application {
     UnregisteredUser ur = new UnregisteredUser();
     RegisteredUser user = null;
     String body;
+    int id;
     Review review;
 
     Stage window;
@@ -32,8 +33,8 @@ public class MovieGUI extends Application {
         database.addMovie("Spectre", "Action", 4, 3, 4, 4, 5, true);
         Movie spectre = MovieManager.getInstance().searchMovie("Spectre");
         window = primaryStage;
-        final int HEIGHT = 500;
-        final int WIDTH = 200;
+        final int HEIGHT = 250;
+        final int WIDTH = 600;
 
         /* REGISTER SCENE SECTION */
 
@@ -43,14 +44,16 @@ public class MovieGUI extends Application {
         TextField passwordR = new TextField("Create a password here");
         Button registerButton = new Button("Register");
         registerButton.setOnAction(e -> {
-            user = ur.register(userNameR.getText(), passwordR.getText());
-            window.setScene(loginScene);
+            if (!userNameR.getText().equals("") && !userNameR.getText().equals("Create your username here") && !passwordR.getText().equals("") && !passwordR.getText().equals("Create a password here")) {
+                user = ur.register(userNameR.getText(), passwordR.getText());
+                window.setScene(loginScene);
+            }
         });
 
         //Register Scene Layout
         VBox registerLayout = new VBox(20);
         registerLayout.getChildren().addAll(registerLabel, userNameR, passwordR, registerButton);
-        registerScene = new Scene(registerLayout, HEIGHT, WIDTH);
+        registerScene = new Scene(registerLayout, WIDTH, HEIGHT);
 
         /* END OF REGISTER SCENE SECTION */
 
@@ -75,7 +78,7 @@ public class MovieGUI extends Application {
         //Login Scene Layout
         VBox loginLayout = new VBox(20);
         loginLayout.getChildren().addAll(loginLabel, userNameL, passwordL, recognised, loginButton);
-        loginScene = new Scene(loginLayout, HEIGHT, WIDTH);
+        loginScene = new Scene(loginLayout, WIDTH, HEIGHT);
 
         /* END OF LOGIN SCENE SECTION */
 
@@ -99,7 +102,7 @@ public class MovieGUI extends Application {
         //Search Movie Layout
         VBox searchLayout = new VBox(20);
         searchLayout.getChildren().addAll(searchLabel, searchBar, nonExistent, searchButton);
-        searchScene = new Scene(searchLayout, HEIGHT, WIDTH);
+        searchScene = new Scene(searchLayout, WIDTH, HEIGHT);
 
         /* END OF SEARCH MOVIE SECTION */
         
@@ -117,7 +120,7 @@ public class MovieGUI extends Application {
                 System.out.println("Try again");
         });
 
-        Button editReviewButton = new Button("Edit Last Added Review");
+        Button editReviewButton = new Button("Edit Current Review");
         editReviewButton.setOnAction(e -> {
             body = TextEntry.display("Movie Review Text Entry", "Please enter your new review body below");
             if (!body.equals("")) {
@@ -128,10 +131,22 @@ public class MovieGUI extends Application {
             }
         });
 
-        Button deleteReviewButton = new Button("Delete Last Added Review");
+        Button deleteReviewButton = new Button("Delete Current Review");
         deleteReviewButton.setOnAction(e -> {
-            if (review != null)
+            if (review != null) {
                 user.deleteReview(spectre, review);
+                int size = spectre.getReviewsList().size();
+                if (size > 0)
+                    review = spectre.getReviewsList().get(size-1);
+            }
+        });
+
+        Button switchReviewButton = new Button("Switch Current Review");
+        switchReviewButton.setOnAction(e -> {
+            if (spectre.getReviewsList().size() > 0) {
+                id = SwitchingWindow.display("Switch Current Review", "Enter the number of the review to switch to (1 is the first review in the list)");
+                review = spectre.getReviewsList().get(id-1);
+            }
         });
 
         Button movieButton = new Button("View Movie");
@@ -141,8 +156,8 @@ public class MovieGUI extends Application {
 
         //Main Scene Layout
         VBox mainLayout = new VBox(20);
-        mainLayout.getChildren().addAll(mainLabel, addReviewButton, editReviewButton, deleteReviewButton, movieButton);
-        mainScene = new Scene(mainLayout, HEIGHT, WIDTH);
+        mainLayout.getChildren().addAll(mainLabel, addReviewButton, editReviewButton, deleteReviewButton, switchReviewButton, movieButton);
+        mainScene = new Scene(mainLayout, WIDTH, HEIGHT);
 
         /* END OF MAIN SCENE SECTION */
 

@@ -12,10 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class TextEntry {
-    static String reviewBody;
+public class SwitchingWindow {
+    static int reviewId;
 
-    public static String display (String title, String message) {
+    public static int display (String title, String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -23,23 +23,23 @@ public class TextEntry {
 
         Label label = new Label();
         label.setText(message);
-        TextArea newBody = new TextArea("Enter body here");
+        TextField newId = new TextField();
 
-        Button finishButton = new Button("Finish");
-        finishButton.setOnAction(e -> {
-            if (!(newBody.getText() == null) && !newBody.getText().equals(""))
-                reviewBody = newBody.getText();
+        Button switchButton = new Button("Switch");
+        switchButton.setOnAction(e -> {
+            if (!(newId.getText() == null) && !newId.getText().equals("") && !newId.getText().equals("0"))
+                reviewId = Integer.parseInt(newId.getText());
             window.close();
         });
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(label, newBody, finishButton);
+        layout.getChildren().addAll(label, newId, switchButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
 
-        return reviewBody;
+        return reviewId;
     }
 }
