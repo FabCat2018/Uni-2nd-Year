@@ -20,7 +20,7 @@ public class MovieGUI extends Application {
     Review review;
 
     Stage window;
-    Scene registerScene, loginScene, mainScene, movieScene, textScene;
+    Scene registerScene, loginScene, searchScene, mainScene, movieScene, textScene;
 
     public static void main(String[] args) {
         launch(args);
@@ -67,7 +67,7 @@ public class MovieGUI extends Application {
         loginButton.setOnAction(e -> {
             boolean correct = user.login(userNameL.getText(), passwordL.getText());
             if (correct)
-                window.setScene(mainScene);
+                window.setScene(searchScene);
             else
                 recognised.setVisible(true);
         });
@@ -78,6 +78,30 @@ public class MovieGUI extends Application {
         loginScene = new Scene(loginLayout, HEIGHT, WIDTH);
 
         /* END OF LOGIN SCENE SECTION */
+
+
+        /* SEARCH MOVIE SECTION */
+
+        //Search Movie Functionality
+        Label searchLabel = new Label("Please enter the name of the movie you wish to search for\nDemonstration Purpose, only movie in database is 'Spectre'");
+        TextField searchBar = new TextField("");
+        TextField nonExistent = new TextField("Our apologies, that movie does not exist in our database");
+        nonExistent.setVisible(false);
+        Button searchButton = new Button("Search");
+        searchButton.setOnAction(e -> {
+            if (searchBar.getText().equals("Spectre"))
+                window.setScene(mainScene);
+            else
+                nonExistent.setVisible(true);
+
+        });
+
+        //Search Movie Layout
+        VBox searchLayout = new VBox(20);
+        searchLayout.getChildren().addAll(searchLabel, searchBar, nonExistent, searchButton);
+        searchScene = new Scene(searchLayout, HEIGHT, WIDTH);
+
+        /* END OF SEARCH MOVIE SECTION */
         
 
         /* MAIN SCENE SECTION */
@@ -89,6 +113,8 @@ public class MovieGUI extends Application {
             body = TextEntry.display("Movie Review Text Entry", "Please enter your review body below");
             if (!body.equals(""))
                 review = user.writeReview(spectre, body);
+            else
+                System.out.println("Try again");
         });
 
         Button editReviewButton = new Button("Edit Last Added Review");
@@ -96,7 +122,7 @@ public class MovieGUI extends Application {
             body = TextEntry.display("Movie Review Text Entry", "Please enter your new review body below");
             if (!body.equals("")) {
                 if (review == null)
-                    user.writeReview(spectre, body);
+                    review = user.writeReview(spectre, body);
                 else
                     user.editReview(spectre, review, body);
             }

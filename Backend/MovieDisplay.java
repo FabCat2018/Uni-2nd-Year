@@ -12,10 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class MovieDisplay {
-    static String reviewBody;
-
-    public static String display (String title, Movie spectre) {
+public class MovieDisplay {    
+    public static void display (String title, Movie spectre) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -36,7 +34,5 @@ public class MovieDisplay {
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-
-        return reviewBody;
     }
 }
