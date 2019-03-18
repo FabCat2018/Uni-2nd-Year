@@ -135,6 +135,7 @@ public class MovieGUI extends Application {
         deleteReviewButton.setOnAction(e -> {
             if (review != null) {
                 user.deleteReview(spectre, review);
+                review = null;
                 int size = spectre.getReviewsList().size();
                 if (size > 0)
                     review = spectre.getReviewsList().get(size-1);
